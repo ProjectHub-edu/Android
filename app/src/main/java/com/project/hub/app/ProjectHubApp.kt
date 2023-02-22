@@ -1,9 +1,9 @@
-package com.project.hub
+package com.project.hub.app
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
 
-class ProjectClassApp : Application() {
+class ProjectHubApp : Application() {
 
     override fun onCreate() {
         DynamicColors.applyToActivitiesIfAvailable(this)
