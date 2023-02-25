@@ -7,15 +7,15 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Named
 
-class LoginService @Inject constructor(
+class AuthService @Inject constructor(
     @Named("loginRetrofit") private val retrofit: Retrofit
 ) {
 
-    private val loginApi: LoginApi by lazy { retrofit.create(LoginApi::class.java) }
+    private val authApi: AuthApi by lazy { retrofit.create(AuthApi::class.java) }
 
     suspend fun login(email: String, password: String): NetworkResult<ResponseModel> {
         val loginModel = LoginModel(email, password)
-        return loginApi.login(loginModel)
+        return authApi.login(loginModel)
     }
 
 }

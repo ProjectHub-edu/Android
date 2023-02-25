@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -26,7 +27,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): Nothing = TODO()
+    @Named("loginRetrofit")
+    fun provideAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val tempUrl = "https://web-store-mern.onrender.com/"
+        return createRetrofit(tempUrl, okHttpClient).build()
+    }
 
     @Provides
     @Singleton

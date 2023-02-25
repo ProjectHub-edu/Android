@@ -1,4 +1,4 @@
-package com.project.hub.presentation.fragments
+package com.project.hub.feature.auth.ui.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.project.hub.databinding.FragmentLoginBinding
-import com.project.hub.domain.model.LoginModel
-import com.project.hub.MainActivity
-import com.project.hub.presentation.fragments.viewmodel.LoginFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -37,7 +33,7 @@ class LoginFragment : Fragment() {
 //        viewModel = LoginFragmentViewModel()
 
         binding.loginButton.setOnClickListener {
-            viewModel.login(LoginModel(email, password))
+            viewModel.login(email, password)
         }
 
     }

@@ -1,4 +1,4 @@
-package com.project.hub.feature.auth.data.model
+package com.project.hub.feature.auth.data.remote.entymodels
 
 data class LoginModel(
     val email: String,

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:orientation="vertical"
-    tools:context=".feature.auth.ui.login.LoginFragment"
-    tools:ignore="HardcodedText">
+    tools:context=".feature.auth.ui.login.LoginFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -26,12 +26,10 @@
 
     <ImageView
         android:id="@+id/imageViewLogin"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="img"
         android:src="@drawable/draw_login"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar" />
@@ -56,7 +54,10 @@
         app:startIconDrawable="@drawable/email_icon"
         android:hint="Email"
         android:layout_marginTop="20dp"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintTop_toBottomOf="@id/tvLogin"
@@ -80,7 +81,10 @@
         app:endIconDrawable="@drawable/eye_icon"
         app:endIconMode="password_toggle"
         android:layout_marginTop="14dp"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintTop_toBottomOf="@id/tiEmail"
@@ -100,7 +104,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginTop="14dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
@@ -115,11 +118,11 @@
         android:text="No account? Register"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/material_dynamic_primary50"
         android:background="@color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@id/loginButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

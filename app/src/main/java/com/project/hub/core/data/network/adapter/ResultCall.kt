@@ -33,6 +33,7 @@ internal class ResultCall<T>(proxy: Call<T>) : CallDelegate<T, NetworkResult<T>>
         }
 
         override fun onFailure(call: Call<T>, error: Throwable) {
+//            val result = error as? Exception ?: Exception(cause = error)
             val result = error as? Exception ?: Exception(error)
             callback.onResponse(proxy, Response.success(Result.Failure(result)))
         }
