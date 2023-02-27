@@ -1,5 +1,6 @@
 package com.project.hub.application.di
 
+import com.project.hub.application.Configs.serverUrl
 import com.project.hub.core.data.network.adapter.ResultAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -10,28 +11,23 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    const val API_URL: String = "https://project-hub.herokuapp.com/api/"
+//    const val API_URL: String = "https://project-hub.herokuapp.com/api/"
 
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return createRetrofit(API_URL, okHttpClient).build()
+        return createRetrofit(serverUrl, okHttpClient).build()
     }
 
     @Provides
     @Singleton
-    @Named("loginRetrofit")
-    fun provideAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val tempUrl = "https://web-store-mern.onrender.com/"
-        return createRetrofit(tempUrl, okHttpClient).build()
-    }
+    fun provideAuthApi(retrofit: Retrofit): Nothing = TODO()
 
     @Provides
     @Singleton
