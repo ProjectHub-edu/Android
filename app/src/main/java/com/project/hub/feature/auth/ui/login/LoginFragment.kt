@@ -1,6 +1,7 @@
 package com.project.hub.feature.auth.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,13 +27,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val email = "vova1902@gmail.com"
-        val password = "qwerty123"
-
-        // VM
-//        viewModel = LoginFragmentViewModel()
+//        val email = "vova1902@gmail.com"
+//        val password = "qwerty123"
 
         binding.loginButton.setOnClickListener {
+            val email = binding.tieEmail.text.toString()
+            val password = binding.tiePass.text.toString()
             viewModel.login(email, password)
         }
 
