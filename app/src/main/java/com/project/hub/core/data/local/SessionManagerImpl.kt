@@ -1,9 +1,22 @@
 package com.project.hub.core.data.local
 
+import com.project.hub.core.data.local.sharedpref.SharedPreferences
 import com.project.hub.core.domain.SessionManager
+import javax.inject.Inject
 
-class SessionManagerImpl : SessionManager {
+class SessionManagerImpl @Inject constructor(
+    private val sharedPreferences: SharedPreferences
+) : SessionManager {
+
     override fun getUserTokenOrNull(): String? {
-        TODO("Not yet implemented")
+        return sharedPreferences.getToken()
     }
+
+    override fun saveUserToken(token: String): Boolean {
+        sharedPreferences.saveToken(token)
+        return !getUserTokenOrNull().isNullOrEmpty()
+
+    }
+
+
 }

@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
 
-        binding = ActivityMainBinding.inflate(layoutInflater).also {
+        binding =  ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
     }
