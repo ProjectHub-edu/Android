@@ -1,6 +1,5 @@
 package com.project.hub.feature.auth.data.repository
 
-import android.util.Log
 import com.project.hub.core.data.network.result.NetworkResult
 import com.project.hub.core.domain.SessionManager
 import com.project.hub.core.util.onFailure
@@ -18,10 +17,7 @@ class AuthRepository @Inject constructor(
             .onFailure { return it }
 
         // saveToken
-        val saveResponse = sessionManager.saveUserToken(loginResponse.token)
-
-        Log.d("ANSWR1111", loginResponse.toString())
-        Log.d("ANSWR1111", saveResponse.toString())
+        sessionManager.saveUserToken(loginResponse.token)
 
         return Result.Success(Unit)
     }

@@ -1,14 +1,17 @@
 package com.project.hub.feature.auth.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.project.hub.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -27,14 +30,29 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val email = "vova1902@gmail.com"
-//        val password = "qwerty123"
-
         binding.loginButton.setOnClickListener {
             val email = binding.tieEmail.text.toString()
             val password = binding.tiePass.text.toString()
             viewModel.login(email, password)
         }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.exceptionState.collect { state ->
+                    when (state) {
+                        is LoginState.Error -> {
+                            binding.tiEmail.error = state.throwable
+//                            binding.tiPass.error = state.throwable
+//                            binding.tiPass.boxStrokeColor = Color.RED
+                        }
+                        is LoginState.Success -> {}
+                        is LoginState.Loading -> {}
+                    }
+                }
+            }
+        }
+
 
     }
 }

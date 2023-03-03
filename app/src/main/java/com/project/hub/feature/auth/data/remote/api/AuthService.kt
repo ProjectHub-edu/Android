@@ -1,6 +1,7 @@
 package com.project.hub.feature.auth.data.remote.api
 
 import com.project.hub.core.data.network.result.NetworkResult
+import com.project.hub.core.util.onFailure
 import com.project.hub.feature.auth.data.remote.entymodels.LoginModel
 import com.project.hub.feature.auth.data.remote.entymodels.LoginResponse
 import retrofit2.Retrofit
