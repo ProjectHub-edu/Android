@@ -30,8 +30,7 @@ object NetworkModule {
     @Singleton
     @Named("authRetrofit")
     fun provideAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val tempUrl = "https://web-store-mern.onrender.com/"
-        return createRetrofit(tempUrl, okHttpClient).build()
+        return createRetrofit(serverUrl, okHttpClient).build()
     }
 
     @Provides
