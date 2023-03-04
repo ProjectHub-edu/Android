@@ -1,9 +1,13 @@
 package com.project.hub.feature.auth.ui.signup
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.window.OnBackInvokedCallback
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -36,7 +40,31 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val navController = findNavController(R.id.nav)
+        // Action Bar
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.title = "Regiter"
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val navController = findNavController()
+
+        // Host Menu
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {  }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    android.R.id.home -> {
+                        navController.popBackStack()
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+
+            }
+        })
 
 
 //        binding.loginButton.setOnClickListener {

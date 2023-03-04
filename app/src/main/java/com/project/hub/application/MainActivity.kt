@@ -3,6 +3,10 @@ package com.project.hub.application
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.core.view.MenuProvider
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -31,5 +35,16 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(topAppBar)
 
+//        addMenuProvider(object : MenuProvider {
+//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//                // Add menu items here
+//                menuInflater.inflate(R.menu.example_menu, menu)
+//            }
+//
+//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+//                // Handle the menu selection
+//                return true
+//            }
+//        })
     }
 }
