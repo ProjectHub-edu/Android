@@ -30,7 +30,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): Nothing = TODO()
+    @Named("authRetrofit")
+    fun provideAuthRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return createRetrofit(serverUrl, okHttpClient).build()
+    }
 
     @Provides
     @Singleton

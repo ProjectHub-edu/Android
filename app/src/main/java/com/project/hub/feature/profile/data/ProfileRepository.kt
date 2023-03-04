@@ -10,11 +10,20 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ProfileRepository @Inject constructor(
-   @Named("profileRetrofit") val remote: ProfileAPI
+    @Named("profileRetrofit") val remote: ProfileAPI
 ) {
 
     suspend fun getProfileData(profileId: Int): NetworkResult<ProfileModel> {
-        return TODO()
+        return Result.Success(
+            ProfileModel(
+                "Alex",
+                "Alex@mail.com",
+                "ava/..",
+                "desc",
+                listOf(),
+                listOf()
+            )
+        )
     }
 
     suspend fun updateProfileData(): NetworkResult<Unit> {
