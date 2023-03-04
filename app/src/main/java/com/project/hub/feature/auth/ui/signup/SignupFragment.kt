@@ -18,8 +18,10 @@ import com.project.hub.R
 import com.project.hub.databinding.FragmentSignupBinding
 import com.project.hub.feature.auth.ui.login.LoginFragmentViewModel
 import com.project.hub.feature.auth.ui.login.LoginState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SignupFragment : Fragment() {
 
     private val binding: FragmentSignupBinding by lazy {
@@ -28,8 +30,7 @@ class SignupFragment : Fragment() {
         )
     }
 
-//    private val viewModel: SignupViewModel by viewModels()
-//    private val args: LoginFragmentViewModel by navArgs()
+    private val viewModel: SignupViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +48,7 @@ class SignupFragment : Fragment() {
 
         val navController = findNavController()
 
-        // Host Menu
+        // Host Menu (App Bar)
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) { }
@@ -66,30 +67,31 @@ class SignupFragment : Fragment() {
             }
         })
 
+        // SignUp Click
+        binding.signUpButton.setOnClickListener {
+            val email = binding.tieEmail.text.toString()
+            val password = binding.tiePass.text.toString()
+            val username = binding.tiePass.text.toString()
 
-//        binding.loginButton.setOnClickListener {
-//            val email = binding.tieEmail.text.toString()
-//            val password = binding.tiePass.text.toString()
-//            viewModel.login(email, password)
-//        }
+            // Invoke
+            viewModel.register(email, password, username)
+        }
 
-
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.CREATED) {
-//                viewModel.exceptionState.collect { state ->
-//                    when (state) {
-//                        is LoginState.Error -> {
-//                            binding.tiEmail.error = state.throwable
-////                            binding.tiPass.error = state.throwable
-////                            binding.tiPass.boxStrokeColor = Color.RED
-//                        }
-//                        is LoginState.Success -> {}
-//                        is LoginState.Loading -> {}
-//                    }
-//                }
-//            }
-//        }
-
-
+        // Error Flow
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.exceptionState.collect { state ->
+                    when (state) {
+                        is SignUpState.Error -> {
+                            binding.tiEmail.error = state.throwable
+//                            binding.tiPass.error = state.throwable
+//                            binding.tiPass.boxStrokeColor = Color.RED
+                        }
+                        is SignUpState.Success -> {}
+                        is SignUpState.Loading -> {}
+                    }
+                }
+            }
+        }
     }
 }

@@ -23,7 +23,6 @@ class LoginFragment : Fragment() {
     private val binding: FragmentLoginBinding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
 
     private val viewModel: LoginFragmentViewModel by viewModels()
-//    private val args: LoginFragmentViewModel by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,

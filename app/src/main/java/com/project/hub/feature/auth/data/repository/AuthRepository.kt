@@ -21,4 +21,17 @@ class AuthRepository @Inject constructor(
 
         return Result.Success(Unit)
     }
+
+    suspend fun register(email: String, password: String, username: String): NetworkResult<Unit> {
+        val registerResponse = authService.register(email, password, username)
+            .onFailure { return it }
+
+        // saveToken
+        sessionManager.saveUserToken(registerResponse.token)
+
+        return Result.Success(Unit)
+    }
+
+
+
 }
