@@ -7,6 +7,11 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.project.hub.feature.profile.ui.details.ProfileDetailsFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
         android:id="@+id/loginFragment"
         android:name="com.project.hub.feature.auth.ui.login.LoginFragment"
         android:label="fragment_login"
