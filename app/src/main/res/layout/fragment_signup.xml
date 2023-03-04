@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:orientation="vertical"
-    tools:context=".feature.auth.ui.login.LoginFragment">
+    tools:context=".feature.auth.ui.signup.SignupFragment">
 
     <ImageView
-        android:id="@+id/imageViewLogin"
+        android:id="@+id/imageViewSignUp"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/img"
-        android:src="@drawable/draw_login"
+        android:src="@drawable/draw_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,33 +22,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        android:text="@string/login"
+        android:text="@string/sign_up"
         android:textSize="36sp"
-        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSignUp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/email_icon"
-        android:hint="@string/email"
-        android:layout_marginTop="20dp"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
-        app:layout_constraintTop_toBottomOf="@id/tvLogin"
+        android:hint="@string/email"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvLogin"
+        app:startIconDrawable="@drawable/email_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tieEmail"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,49 +56,59 @@
         android:id="@+id/tiPass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/password_icon"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="28dp"
         android:hint="@string/password"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
         app:endIconDrawable="@drawable/eye_icon"
         app:endIconMode="password_toggle"
-        android:layout_marginTop="14dp"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintTop_toBottomOf="@id/tiEmail"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tiEmail"
+        app:startIconDrawable="@drawable/password_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiePass"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="28dp"
+        android:hint="@string/full_name"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tiPass"
+        app:startIconDrawable="@drawable/name_icon">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/signUpButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:layout_marginTop="14dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiPass"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tiName" />
 
-    <Button
-        android:id="@+id/registerButton"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/no_account_register"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:textColor="?attr/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

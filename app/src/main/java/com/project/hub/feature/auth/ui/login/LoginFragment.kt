@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
+import com.project.hub.R
 import com.project.hub.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,7 +40,18 @@ class LoginFragment : Fragment() {
             viewModel.login(email, password)
         }
 
+        // Action Bar
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.title = null
+        actionBar?.setDisplayHomeAsUpEnabled(false)
 
+        // Navigate to Register
+        val navController = Navigation.findNavController(view)
+        binding.registerButton.setOnClickListener {
+            navController.navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+
+        // Show Error
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.exceptionState.collect { state ->
