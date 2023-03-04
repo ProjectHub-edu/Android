@@ -1,19 +1,24 @@
 package com.project.hub.feature.auth.ui.signup
 
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.*
+import android.widget.Toolbar
 import android.window.OnBackInvokedCallback
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.project.hub.R
 import com.project.hub.databinding.FragmentSignupBinding
 import com.project.hub.feature.auth.ui.login.LoginFragmentViewModel

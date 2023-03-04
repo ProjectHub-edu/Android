@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavGraph
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import com.google.android.material.appbar.AppBarLayout
 import com.project.hub.R
 import com.project.hub.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +37,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Login btn click
         binding.loginButton.setOnClickListener {
             val email = binding.tieEmail.text.toString()
             val password = binding.tiePass.text.toString()
+
+            // Invoke
             viewModel.login(email, password)
         }
 
@@ -47,7 +54,9 @@ class LoginFragment : Fragment() {
         // Navigate to Register
         val navController = Navigation.findNavController(view)
         binding.registerButton.setOnClickListener {
-            navController.navigate(R.id.action_loginFragment_to_signupFragment)
+            navController.navigate(
+                R.id.action_loginFragment_to_signupFragment
+            )
         }
 
         // Show Error
@@ -66,7 +75,5 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-
     }
 }
