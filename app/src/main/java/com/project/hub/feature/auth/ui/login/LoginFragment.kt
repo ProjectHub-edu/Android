@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
 
         // Action Bar
         val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.title = ""
+        actionBar?.title = null
         actionBar?.setDisplayHomeAsUpEnabled(false)
 
         // Navigate to Register

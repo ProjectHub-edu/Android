@@ -42,7 +42,7 @@ class SignupFragment : Fragment() {
 
         // Action Bar
         val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.title = "Regiter"
+        actionBar?.title = getString(R.string.register)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val navController = findNavController()
@@ -50,7 +50,7 @@ class SignupFragment : Fragment() {
         // Host Menu
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {  }
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) { }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {

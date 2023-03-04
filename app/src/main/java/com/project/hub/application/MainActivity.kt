@@ -25,26 +25,13 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
 
+        // Binding
         binding =  ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
 
-        val topAppBar = binding.topAppBar
-        val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
-        val navController = navHostFragment.navController
+        // TopAppBar
+        setSupportActionBar(binding.topAppBar)
 
-        setSupportActionBar(topAppBar)
-
-//        addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                // Add menu items here
-//                menuInflater.inflate(R.menu.example_menu, menu)
-//            }
-//
-//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                // Handle the menu selection
-//                return true
-//            }
-//        })
     }
 }
