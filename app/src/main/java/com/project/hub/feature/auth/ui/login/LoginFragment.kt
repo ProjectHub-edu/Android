@@ -1,21 +1,21 @@
 package com.project.hub.feature.auth.ui.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavGraph
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import com.google.android.material.appbar.AppBarLayout
 import com.project.hub.R
 import com.project.hub.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
 
     private val binding: FragmentLoginBinding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
+    private lateinit var overlayView: View
 
     private val viewModel: LoginFragmentViewModel by viewModels()
 
@@ -37,6 +38,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Loading Overlay
+        overlayView = layoutInflater.inflate(R.layout.overlay_layout, binding.root, false)
+
         // Login btn click
         binding.loginButton.setOnClickListener {
             val email = binding.tieEmail.text.toString()
@@ -44,6 +48,8 @@ class LoginFragment : Fragment() {
 
             // Invoke
             viewModel.login(email, password)
+            showOverlay()
+
         }
 
         // Action Bar
@@ -66,14 +72,29 @@ class LoginFragment : Fragment() {
                     when (state) {
                         is LoginState.Error -> {
                             binding.tiEmail.error = state.throwable
-//                            binding.tiPass.error = state.throwable
-//                            binding.tiPass.boxStrokeColor = Color.RED
+                            binding.root.removeView(overlayView)
                         }
-                        is LoginState.Success -> {}
-                        is LoginState.Loading -> {}
+                        is LoginState.Success -> {
+                            binding.root.removeView(overlayView)
+                        }
+                        is LoginState.Loading -> {
+                            showOverlay()
+                        }
                     }
                 }
             }
         }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun showOverlay() {
+        binding.root.addView(overlayView)
+        overlayView.setOnTouchListener { _, _ -> true }
+    }
+
+    override fun onDestroyView() {
+        binding.root.removeView(overlayView)
+        super.onDestroyView()
+    }
+
 }

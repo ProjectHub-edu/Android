@@ -8,9 +8,7 @@ import com.project.hub.core.util.onResult
 import com.project.hub.feature.auth.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,15 +19,15 @@ class LoginFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Flow
-    private val _exceptionState = MutableStateFlow<LoginState>(LoginState.Loading)
-    val exceptionState: StateFlow<LoginState> = _exceptionState.asStateFlow()
+    private val _exceptionState = MutableSharedFlow<LoginState>(replay = 1)
+    val exceptionState: SharedFlow<LoginState> = _exceptionState.asSharedFlow()
 
     fun login(email: String, password: String) = viewModelScope.launch(Dispatchers.IO) {
 
         repository.login(email, password).onResult(
             onSuccess = {},
             onFailure = {
-                _exceptionState.value = LoginState.Error(it.cause.message.toString())
+                _exceptionState.emit(LoginState.Error(it.cause.message.toString()))
             }
         )
 
