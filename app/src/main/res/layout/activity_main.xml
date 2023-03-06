@@ -5,18 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            android:animateLayoutChanges="true"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,6 +32,5 @@
         app:navGraph="@navigation/nav_graph">
 
     </androidx.fragment.app.FragmentContainerView>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

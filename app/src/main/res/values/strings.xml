@@ -12,5 +12,6 @@
     <string name="no_account_register">No account? Register</string>
     <string name="full_name">Full Name</string>
     <string name="sign_up">Sign Up</string>
+    <string name="some_error_occurred">Some Error occurred</string>
 
 </resources>
