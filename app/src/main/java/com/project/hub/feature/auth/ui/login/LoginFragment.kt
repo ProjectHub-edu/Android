@@ -44,7 +44,6 @@ class LoginFragment : Fragment() {
 
             // Invoke
             viewModel.login(email, password)
-            dialogWithProgress()
         }
 
         // Action Bar
@@ -63,39 +62,54 @@ class LoginFragment : Fragment() {
         // Show Error
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.exceptionState.collect { state ->
+                viewModel.state.collect { state ->
                     when (state) {
                         is LoginState.Error -> {
 
                             snackBarError()
 
-                            binding.tiEmail.error = " "
-                            binding.tiPass.error = " "
-                            binding.tiPass.errorIconDrawable = null
+                            with(binding) {
+                                tiEmail.isErrorEnabled = true
+                                tiPass.isErrorEnabled = true
+                                tiEmail.error = " "
+                                tiPass.error = " "
+                                tiPass.errorIconDrawable = null
+                            }
+
 
                             dialog.dismiss()
 
                         }
 
-                        is LoginState.Success -> { dialog.dismiss() }
+                        is LoginState.Success -> {
+                            dialog.dismiss()
 
-                        is LoginState.Loading -> { dialogWithProgress() }
+                            with(binding) {
+                                tiEmail.isErrorEnabled = false
+                                tiPass.isErrorEnabled = false
+                            }
+
+                        }
+
+                        is LoginState.Loading -> {
+                            dialogWithProgress()
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun dialogWithProgress() : AlertDialog {
+    private fun dialogWithProgress(): AlertDialog {
 
         val builder = MaterialAlertDialogBuilder(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
         builder.setView(dialogView)
 
         dialog = builder.show()
-        val window = dialog.window
         dialog.setCancelable(false)
 
+        val window = dialog.window
         window?.setLayout(500, 800)
 
         return dialog

@@ -6,7 +6,7 @@ sealed class LoginState {
 
     object Loading: LoginState()
 
-    data class Success(val data: LoginResponse) : LoginState()
+    data class Success(val response: Unit) : LoginState()
 
     data class Error(val throwable: String) : LoginState()
 
