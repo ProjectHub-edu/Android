@@ -1,33 +1,32 @@
 package com.project.hub.feature.auth.ui.login
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
-import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.project.hub.R
 import com.project.hub.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private val binding: FragmentLoginBinding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
-    private lateinit var overlayView: View
-
     private val viewModel: LoginFragmentViewModel by viewModels()
+    private lateinit var dialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +37,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Loading Overlay
-        overlayView = layoutInflater.inflate(R.layout.overlay_layout, binding.root, false)
-
         // Login btn click
         binding.loginButton.setOnClickListener {
             val email = binding.tieEmail.text.toString()
@@ -48,8 +44,7 @@ class LoginFragment : Fragment() {
 
             // Invoke
             viewModel.login(email, password)
-            showOverlay()
-
+            dialogWithProgress()
         }
 
         // Action Bar
@@ -71,30 +66,51 @@ class LoginFragment : Fragment() {
                 viewModel.exceptionState.collect { state ->
                     when (state) {
                         is LoginState.Error -> {
-                            binding.tiEmail.error = state.throwable
-                            binding.root.removeView(overlayView)
+
+                            snackBarError()
+
+                            binding.tiEmail.error = " "
+                            binding.tiPass.error = " "
+                            binding.tiPass.errorIconDrawable = null
+
+                            dialog.dismiss()
+
                         }
-                        is LoginState.Success -> {
-                            binding.root.removeView(overlayView)
-                        }
-                        is LoginState.Loading -> {
-                            showOverlay()
-                        }
+
+                        is LoginState.Success -> { dialog.dismiss() }
+
+                        is LoginState.Loading -> { dialogWithProgress() }
                     }
                 }
             }
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun showOverlay() {
-        binding.root.addView(overlayView)
-        overlayView.setOnTouchListener { _, _ -> true }
+    private fun dialogWithProgress() : AlertDialog {
+
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        builder.setView(dialogView)
+
+        dialog = builder.show()
+        val window = dialog.window
+        dialog.setCancelable(false)
+
+        window?.setLayout(500, 800)
+
+        return dialog
+
     }
 
-    override fun onDestroyView() {
-        binding.root.removeView(overlayView)
-        super.onDestroyView()
+    private fun snackBarError() {
+        val snackBar = view?.let {
+            Snackbar.make(it, resources.getText(R.string.some_error_occurred), Snackbar.LENGTH_LONG)
+        }
+        val color = view?.let { MaterialColors.getColor(it, androidx.appcompat.R.attr.colorError) }
+        if (color != null) {
+            snackBar?.setBackgroundTint(color)
+        }
+        snackBar?.show()
     }
 
 }
